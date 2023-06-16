@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PeliculasAPI;
+using PeliculasAPI.Servicios;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddAutoMapper(typeof(Program));
+
+builder.Services.AddTransient<IAlmacenadorArchivos, AlmacenadorArchivosAzure>();
 
 builder.Services.AddControllers();
 
