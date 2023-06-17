@@ -1,9 +1,8 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Microsoft.IdentityModel.Tokens;
-using PeliculasAPI.Servicios;
 
-namespace PeliculasAPI
+namespace PeliculasAPI.Servicios
 {
     public class AlmacenadorArchivosAzure : IAlmacenadorArchivos
     {
@@ -15,7 +14,7 @@ namespace PeliculasAPI
 
         public async Task BorrarArchivo(string ruta, string contenedor)
         {
-            if (string.IsNullOrEmpty(ruta)) 
+            if (string.IsNullOrEmpty(ruta))
             {
                 return;
             }
@@ -27,14 +26,14 @@ namespace PeliculasAPI
             await blolb.DeleteIfExistsAsync();
         }
 
-        public async Task<string> EditarArchivo(byte[] contenido, string extension, string contenedor, 
+        public async Task<string> EditarArchivo(byte[] contenido, string extension, string contenedor,
             string ruta, string contentType)
         {
             await BorrarArchivo(ruta, contenedor);
             return await GuardarArchivo(contenido, extension, contenedor, contentType);
         }
 
-        public async Task<string> GuardarArchivo(byte[] contenido, string extension, 
+        public async Task<string> GuardarArchivo(byte[] contenido, string extension,
             string contenedor, string contentType)
         {
             var cliente = new BlobContainerClient(connectionString, contenedor);
